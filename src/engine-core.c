@@ -34,11 +34,11 @@ void engine_init_screen(int width, int height, int bpp, Uint32 flags)
 void engine_init_scene()
 {
   /* place holder values */
-  engine_scene->loaded = 0;
-  engine_scene->load_fnc = NULL;
-  engine_scene->unload_fnc = NULL;
-  engine_scene->logic_fnc = NULL;
-  engine_scene->render_fnc = NULL;
+  engine_scene.loaded = 0;
+  engine_scene.load_fnc = NULL;
+  engine_scene.unload_fnc = NULL;
+  engine_scene.logic_fnc = NULL;
+  engine_scene.render_fnc = NULL;
 }
 
 /* Main Loop */
@@ -47,7 +47,7 @@ void engine_main_loop()
   int running;
   Uint32 now, before;
 
-  if(!(engine_scene->loaded))
+  if(!(engine_scene.loaded))
   {
     fprintf(stderr, "Nothing loaded!\n");
     exit(1);
@@ -57,7 +57,7 @@ void engine_main_loop()
   before = SDL_GetTicks();
   while(running)
   {
-    now = SDL_GetTicks;
+    now = SDL_GetTicks();
     running = engine_logic_refresh(now - before);
     if(!running) break; /* Avoid unnecessary render refresh */
     engine_render_refresh(now - before);
@@ -71,12 +71,12 @@ void engine_main_loop()
 int engine_logic_refresh(Uint32 delta)
 {
   Uint8 *keystate = SDL_GetKeyState(NULL);
-  return engine_scene->logic_fnc(keystate, delta);
+  return engine_scene.logic_fnc(keystate, delta);
 }
 
 void engine_render_refresh(Uint32 delta)
 {
-  engine_scene->render_fnc(delta);
+  engine_scene.render_fnc(delta);
   SDL_Flip(engine_screen.surface);
   SDL_FillRect(engine_screen.surface, NULL, 0);
 }
@@ -84,18 +84,18 @@ void engine_render_refresh(Uint32 delta)
 /* Scene Loader Function */
 void engine_load_scene(void (*loadfnc)(), void (*unloadfnc)(), int (*logicfnc)(Uint8*,Uint32), void (*renderfnc)(Uint32))
 {
-  if(engine_scene->loaded)
-    engine_scene->unload_fnc();
+  if(engine_scene.loaded)
+    engine_scene.unload_fnc();
   if(loadfnc && unloadfnc && logicfnc && renderfnc)
   {
-    engine_scene->loaded = 1;
-    engine_scene->load_fnc = loadfnc;
-    engine_scene->unload_fnc = unloadfnc;
-    engine_scene->logic_fnc = logicfnc;
-    engine_scene->render_fnc = renderfnc;
+    engine_scene.loaded = 1;
+    engine_scene.load_fnc = loadfnc;
+    engine_scene.unload_fnc = unloadfnc;
+    engine_scene.logic_fnc = logicfnc;
+    engine_scene.render_fnc = renderfnc;
   } else {
     fprintf(stderr, "NULL functions!\n");
     exit(1);
   }
-  engine_scene->load_fnc();
+  engine_scene.load_fnc();
 }

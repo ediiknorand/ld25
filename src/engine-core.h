@@ -8,6 +8,7 @@ typedef struct
 {
   int width, height, bpp;
   Uint32 flags;
+  SDL_Surface *surface;
 } Engine_screen;
 
 typedef struct
