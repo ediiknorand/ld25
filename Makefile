@@ -7,12 +7,13 @@ CC=gcc
 CC_FLAGS=-Wall -O2
 
 SRC=src
+OBJ_PATH=obj
+OBJ_SUB=engine
 BUILD=build
-BUILD_SUB=engine
 
-OBJ_FILES=$(addprefix $(BUILD), $(addsuffix .o, $(OBJ)))
+OBJ_FILES=$(addprefix $(OBJ_PATH)/, $(addsuffix .o, $(OBJ)))
 LIB_FLAGS=$(addprefix -l, $(LIB))
-BUILD_PATHS=$(addprefix $(BUILD)/, $(BUILD_SUB))
+OBJ_PATHS=$(addprefix $(OBJ_PATH)/, $(OBJ_SUB))
 
 define cc-obj
 $(CC) -c $(CC_FLAGS) $< -o $@
@@ -22,17 +23,20 @@ define cc-app
 $(CC) $(CC_FLAGS) $(SRC)/$(MAIN).c -o $(BUILD)/$(APP) $(OBJ_FILES) $(LIB_FLAGS)
 endef
 
-$(APP): $(OBJ_FILES) $(BUILD)
+$(APP): $(OBJ_FILES) $(OBJ_PATH) $(BUILD)
 	$(cc-app)
 	rm -f $(OBJ_FILES)
 
-$(BUILD)/%.o: $(SRC)/%.c $(BUILD_PATHS)
+$(BUILD):
+	mkdir $(BUILD)
+
+$(OBJ_PATH)/%.o: $(SRC)/%.c $(OBJ_PATHS)
 	$(cc-obj)
 
-$(BUILD):
+$(OBJ_PATH):
 	mkdir $@
 
-$(BUILD_PATHS):
+$(OBJ_PATHS):
 	mkdir -p $@
 
 clean:
