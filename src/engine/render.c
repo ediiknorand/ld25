@@ -1,11 +1,11 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <stdio.h>
-#include "engine-render.h"
-#include "engine-core.h"
+#include "render.h"
+#include "core.h"
 
 /* Init Render */
-void engine_render_init(int flags)
+void engine_init_render(int flags)
 {
   int initted=IMG_Init(flags);
   if((initted & flags) != flags)
@@ -16,7 +16,7 @@ void engine_render_init(int flags)
 }
 
 /* Quit Render */
-void engine_render_quit()
+void engine_quit_render()
 {
   IMG_Quit();
 }
@@ -43,7 +43,7 @@ void engine_unload_image(SDL_Surface *image)
 }
 
 /* Render function */
-void engine_render_image(SDL_Surface *src_surface, SDL_Rect *src_rect, SDL_Rect *dest_rect)
+void engine_render_surface(SDL_Surface *src_surface, SDL_Rect *src_rect, SDL_Rect *dest_rect)
 {
   SDL_BlitSurface(src_surface, src_rect, engine_screen.surface, dest_rect);
 }
