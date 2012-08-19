@@ -7,4 +7,6 @@
 void guiRenderWinRect(GUIWindow *w);
 void guiRenderWindow(GUIWindow *w);
 
+void guiRenderField(GUIField *field);
+
 #endif

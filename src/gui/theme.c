@@ -5,7 +5,7 @@
 #include <string.h>
 #include "theme.h"
 
-GUITheme *guiCreateTheme(Uint32 bg, SDL_color *text, char *font_filename, int ptsize)
+GUITheme *guiCreateTheme(Uint32 bg, SDL_Color *text, char *font_filename, int ptsize)
 {
   GUITheme *theme = malloc(sizeof(GUITheme));
   if(!theme)
@@ -18,7 +18,7 @@ GUITheme *guiCreateTheme(Uint32 bg, SDL_color *text, char *font_filename, int pt
   theme->font = TTF_OpenFont(font_filename, ptsize);
   if(!(theme->font))
   {
-    fprintf(stderr,"TTF Error: %s\n",TTF_GetError())
+    fprintf(stderr,"TTF Error: %s\n",TTF_GetError());
     exit(1);
   }
   return theme;

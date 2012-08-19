@@ -61,8 +61,10 @@ void guiAddField(GUIWindow *w, SDL_Rect *frect, SDL_Surface *surface, SDL_Rect *
 {
   if(w->filled >= w->fsize)
     return;
-  memcpy(&(w->field[w->filled].frect), frect, sizeof(SDL_Rect));
-  memcpy(&(w->field[w->filled].src_rect), src_rect, sizeof(SDL_Rect));
+  if(frect)
+    memcpy(&(w->field[w->filled].frect), frect, sizeof(SDL_Rect));
+  if(src_rect)
+    memcpy(&(w->field[w->filled].src_rect), src_rect, sizeof(SDL_Rect));
   w->field[w->filled].surface = surface;
   (w->filled)++;
 }

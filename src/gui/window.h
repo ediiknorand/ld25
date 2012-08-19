@@ -2,6 +2,7 @@
 #define H_GUI_CORE_H
 
 #include <SDL/SDL.h>
+#include "theme.h"
 
 typedef struct
 {
@@ -17,6 +18,7 @@ typedef struct _GUIWindow
 
   GUIField *field;
   Uint16 fsize;
+  Uint16 filled;
 
   struct _GUIWindow *caller;
   GUITheme *theme;
