@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "engine-core.h"
+#include "core.h"
 
 /* Init functions */
 void engine_init_sdl()
@@ -59,7 +59,8 @@ void engine_main_loop()
   {
     now = SDL_GetTicks();
     running = engine_logic_refresh(now - before);
-    if(!running) break; /* Avoid unnecessary render refresh */
+    //if(!running) break; /* Avoid unnecessary render refresh */
+    if(!running) exit(0);
     engine_render_refresh(now - before);
     before = now;
     SDL_Delay(10); /* <- Why not Vsynced? */
@@ -70,7 +71,9 @@ void engine_main_loop()
 /* Generic Refresh Functions */
 int engine_logic_refresh(Uint32 delta)
 {
-  Uint8 *keystate = SDL_GetKeyState(NULL);
+  Uint8 *keystate;
+  SDL_PumpEvents();
+  keystate = SDL_GetKeyState(NULL);
   return engine_scene.logic_fnc(keystate, delta);
 }
 
