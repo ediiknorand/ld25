@@ -38,6 +38,13 @@ void guiClear();
 GUIWindow *guiSummonWindow(char *title, SDL_Rect *wrect, int n_fields, GUITheme *theme);
 void guiUnsummonWindow();
 
-void guiAddField(GUIWindow *w, SDL_Rect *frect, SDL_Surface *surface, SDL_Rect *src_rect);
+int guiAddField(GUIWindow *win,
+                 Sint16 fx, Sint16 fy,
+		 SDL_Surface *surface);
+
+int guiAddField2(GUIWindow *win,
+                 Sint16 fx, Sint16 fy, 
+		 SDL_Surface *surface,
+		 Sint16 sx, Sint16 sy, Uint16 w, Uint16 h);
 
 #endif

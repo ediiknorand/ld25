@@ -57,16 +57,38 @@ void guiUnsummonWindow()
 }
 
 /* - - - - */
-void guiAddField(GUIWindow *w, SDL_Rect *frect, SDL_Surface *surface, SDL_Rect *src_rect)
+int guiAddField(GUIWindow *win, Sint16 fx, Sint16 fy, SDL_Surface *surface)
 {
-  if(w->filled >= w->fsize)
-    return;
-  if(frect)
-    memcpy(&(w->field[w->filled].frect), frect, sizeof(SDL_Rect));
-  if(src_rect)
-    memcpy(&(w->field[w->filled].src_rect), src_rect, sizeof(SDL_Rect));
-  w->field[w->filled].surface = surface;
-  (w->filled)++;
+  if(!(win && surface) || (win->filled >= win->fsize))
+    return -1;
+  win->field[win->filled].frect.x = fx;
+  win->field[win->filled].frect.y = fy;
+  win->field[win->filled].src_rect.x = 0;
+  win->field[win->filled].src_rect.y = 0;
+  win->field[win->filled].src_rect.w = surface->w;
+  win->field[win->filled].src_rect.h = surface->h;
+  win->field[win->filled].surface = surface;
+  (win->filled)++;
+  return win->filled -1;
+}
+
+
+int guiAddField2(GUIWindow *win,
+                  Sint16 fx, Sint16 fy, 
+		  SDL_Surface *surface,
+		  Sint16 sx, Sint16 sy, Uint16 w, Uint16 h)
+{
+  if(!(win && surface) || (win->filled >= win->fsize))
+    return -1;
+  win->field[win->filled].frect.x = fx;
+  win->field[win->filled].frect.y = fy;
+  win->field[win->filled].src_rect.x = sx;
+  win->field[win->filled].src_rect.y = sy;
+  win->field[win->filled].src_rect.w = w;
+  win->field[win->filled].src_rect.h = h;
+  win->field[win->filled].surface = surface;
+  (win->filled)++;
+  return win->filled -1;
 }
 
 /* - - - - */
