@@ -1,4 +1,4 @@
-OBJ=engine/core engine/render
+OBJ=engine/core engine/render engine/text gui/window gui/theme gui/render
 LIB=SDL SDL_image
 MAIN=main
 APP=app
@@ -8,7 +8,7 @@ CC_FLAGS=-Wall -O2
 
 SRC=src
 OBJ_PATH=obj
-OBJ_SUB=engine
+OBJ_SUB=engine gui
 BUILD=build
 
 OBJ_FILES=$(addprefix $(OBJ_PATH)/, $(addsuffix .o, $(OBJ)))
