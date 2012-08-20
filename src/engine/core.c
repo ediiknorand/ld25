@@ -44,6 +44,7 @@ void engine_init_scene()
   engine_scene.unload_fnc = NULL;
   engine_scene.logic_fnc = NULL;
   engine_scene.render_fnc = NULL;
+  engine_scene.data = NULL;
 }
 
 /* Main Loop */
@@ -63,10 +64,10 @@ void engine_main_loop()
   while(running)
   {
     now = SDL_GetTicks();
-    running = engine_logic_refresh(now - before);
+    running = engine_logic_refresh((now - before)/0.001);
     //if(!running) break; /* Avoid unnecessary render refresh */
     if(!running) exit(0);
-    engine_render_refresh(now - before);
+    engine_render_refresh((now - before)/0.001);
     before = now;
     SDL_Delay(10); /* <- Why not Vsynced? */
   }
@@ -74,26 +75,28 @@ void engine_main_loop()
 
 
 /* Generic Refresh Functions */
-int engine_logic_refresh(Uint32 delta)
+int engine_logic_refresh(double delta)
 {
   Uint8 *keystate;
   SDL_PumpEvents();
   keystate = SDL_GetKeyState(NULL);
-  return engine_scene.logic_fnc(keystate, delta);
+  return engine_scene.logic_fnc(engine_scene.data, keystate, delta);
 }
 
-void engine_render_refresh(Uint32 delta)
+void engine_render_refresh(double delta)
 {
-  engine_scene.render_fnc(delta);
+  engine_scene.render_fnc(engine_scene.data, delta);
   SDL_Flip(engine_screen.surface);
   SDL_FillRect(engine_screen.surface, NULL, 0);
 }
 
 /* Scene Loader Function */
-void engine_load_scene(void (*loadfnc)(), void (*unloadfnc)(), int (*logicfnc)(Uint8*,Uint32), void (*renderfnc)(Uint32))
+void engine_load_scene(void *(*loadfnc)(), void (*unloadfnc)(void*), 
+                       int (*logicfnc)(void*,Uint8*,double), 
+		       void (*renderfnc)(void*,double))
 {
   if(engine_scene.loaded)
-    engine_scene.unload_fnc();
+    engine_scene.unload_fnc(engine_scene.data);
   if(loadfnc && unloadfnc && logicfnc && renderfnc)
   {
     engine_scene.loaded = 1;
@@ -105,5 +108,5 @@ void engine_load_scene(void (*loadfnc)(), void (*unloadfnc)(), int (*logicfnc)(U
     fprintf(stderr, "NULL functions!\n");
     exit(1);
   }
-  engine_scene.load_fnc();
+  engine_scene.data = engine_scene.load_fnc();
 }

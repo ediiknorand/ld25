@@ -14,11 +14,13 @@ typedef struct
 typedef struct
 {
   int loaded;
-  void (*load_fnc)();
-  void (*unload_fnc)();
+  void *(*load_fnc)();
+  void (*unload_fnc)(void*);
 
-  int (*logic_fnc)(Uint8*, Uint32);
-  void (*render_fnc)(Uint32);
+  int (*logic_fnc)(void*, Uint8*, double);
+  void (*render_fnc)(void*, double);
+
+  void *data;
 } Engine_scene;
 
 /* Global Vars */
@@ -34,10 +36,11 @@ void engine_set_title(const char *title, const char *icon);
 void engine_main_loop();
 
 /* Generic Refresh Functions */
-int engine_logic_refresh(Uint32 delta);
-void engine_render_refresh(Uint32 delta);
+int engine_logic_refresh(double delta);
+void engine_render_refresh(double delta);
 
 /* Scene Loader Function */
-void engine_load_scene(void (*loadfnc)(), void (*unloadfnc)(), int (*logicfnc)(Uint8*,Uint32), void (*renderfnc)(Uint32));
+void engine_load_scene(void *(*loadfnc)(), void (*unloadfnc)(void*), 
+                       int (*logicfnc)(void*,Uint8*,double), void (*renderfnc)(void*,double));
 
 #endif
