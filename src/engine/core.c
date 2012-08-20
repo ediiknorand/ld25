@@ -31,6 +31,11 @@ void engine_init_screen(int width, int height, int bpp, Uint32 flags)
   }
 }
 
+void engine_set_title(const char *title, const char *icon)
+{
+  SDL_WM_SetCaption(title, icon);
+}
+
 void engine_init_scene()
 {
   /* place holder values */

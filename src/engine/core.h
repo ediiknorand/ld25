@@ -28,6 +28,7 @@ Engine_scene engine_scene;
 /* Init functions */
 void engine_init_sdl();
 void engine_init_screen(int width, int height, int bpp, Uint32 flags);
+void engine_set_title(const char *title, const char *icon);
 
 /* Main Loop */
 void engine_main_loop();
