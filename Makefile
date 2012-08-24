@@ -1,5 +1,5 @@
-OBJ=engine/core engine/render engine/text gui/window gui/theme gui/render
-LIB=SDL SDL_image
+OBJ=engine/core engine/render engine/sound engine/text gui/window gui/theme gui/render
+LIB=SDL SDL_image SDL_mixer SDL_ttf m
 MAIN=main
 APP=app
 
