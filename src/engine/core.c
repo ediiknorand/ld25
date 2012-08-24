@@ -7,7 +7,7 @@
 /* Init functions */
 void engine_init_sdl()
 {
-  if(SDL_Init(SDL_INIT_VIDEO) < 0)
+  if(SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0)
   {
     fprintf(stderr, "Error: %s\n", SDL_GetError());
     exit(1);
@@ -64,10 +64,10 @@ void engine_main_loop()
   while(running)
   {
     now = SDL_GetTicks();
-    running = engine_logic_refresh((now - before)/0.001);
+    running = engine_logic_refresh((now - before)*0.001);
     //if(!running) break; /* Avoid unnecessary render refresh */
     if(!running) exit(0);
-    engine_render_refresh((now - before)/0.001);
+    engine_render_refresh((now - before)*0.001);
     before = now;
     SDL_Delay(10); /* <- Why not Vsynced? */
   }
