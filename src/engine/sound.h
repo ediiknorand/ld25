@@ -1,9 +1,9 @@
 #ifndef H_SOUND_ENGINE_H
 #define H_SOUND_ENGINE_H
 
-void engine_load_sound();
-void engine_unload_sound();
+#include <SDL/SDL_mixer.h>
 
-void engine_play_sound();
+void engine_init_sound(int flags);
+void engine_quit_sound();
 
 #endif
