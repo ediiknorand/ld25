@@ -47,3 +47,22 @@ void engine_render_surface(SDL_Surface *src_surface, SDL_Rect *src_rect, SDL_Rec
 {
   SDL_BlitSurface(src_surface, src_rect, engine_screen.surface, dest_rect);
 }
+
+/* Create surface */
+SDL_Surface *engine_create_surface(Uint32 flags, int w, int h)
+{
+  Uint32 rmask, gmask, bmask, amask;
+
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+  rmask = 0xff000000;
+  gmask = 0x00ff0000;
+  bmask = 0x0000ff00;
+  amask = 0x000000ff;
+#else
+  rmask = 0x000000ff;
+  gmask = 0x0000ff00;
+  bmask = 0x00ff0000;
+  amask = 0xff000000;
+#endif
+  return SDL_CreateRGBSurface(flags, w, h, 32, rmask, gmask, bmask, amask);
+}
