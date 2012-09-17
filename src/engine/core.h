@@ -9,13 +9,14 @@ typedef struct
   int width, height, bpp;
   Uint32 flags;
   SDL_Surface *surface;
+  Uint32 delay;
 } Engine_screen;
 
 typedef struct
 {
   int loaded;
-  void *(*load_fnc)();
-  void (*unload_fnc)(void*);
+  void *(*load_fnc)(void*);
+  void *(*unload_fnc)(void*);
 
   int (*logic_fnc)(void*, Uint8*, double);
   void (*render_fnc)(void*, double);
@@ -40,7 +41,7 @@ int engine_logic_refresh(double delta);
 void engine_render_refresh(double delta);
 
 /* Scene Loader Function */
-void engine_load_scene(void *(*loadfnc)(), void (*unloadfnc)(void*), 
+void engine_load_scene(void *(*loadfnc)(void*), void *(*unloadfnc)(void*), 
                        int (*logicfnc)(void*,Uint8*,double), void (*renderfnc)(void*,double));
 
 #endif

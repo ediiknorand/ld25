@@ -22,6 +22,7 @@ void engine_init_screen(int width, int height, int bpp, Uint32 flags)
   engine_screen.height = height;
   engine_screen.bpp = bpp;
   engine_screen.flags = flags;
+  engine_screen.delay = 10;
 
   engine_screen.surface = SDL_SetVideoMode(width, height, bpp, flags);
   if(!(engine_screen.surface))
@@ -69,7 +70,7 @@ void engine_main_loop()
     if(!running) exit(0);
     engine_render_refresh((now - before)*0.001);
     before = now;
-    SDL_Delay(10); /* <- Why not Vsynced? */
+    SDL_Delay(engine_screen.delay); /* <- Why not Vsynced? */
   }
 }
 
@@ -91,12 +92,12 @@ void engine_render_refresh(double delta)
 }
 
 /* Scene Loader Function */
-void engine_load_scene(void *(*loadfnc)(), void (*unloadfnc)(void*), 
+void engine_load_scene(void *(*loadfnc)(void*), void *(*unloadfnc)(void*), 
                        int (*logicfnc)(void*,Uint8*,double), 
 		       void (*renderfnc)(void*,double))
 {
   if(engine_scene.loaded)
-    engine_scene.unload_fnc(engine_scene.data);
+    engine_scene.data = engine_scene.unload_fnc(engine_scene.data);
   if(loadfnc && unloadfnc && logicfnc && renderfnc)
   {
     engine_scene.loaded = 1;
@@ -108,5 +109,5 @@ void engine_load_scene(void *(*loadfnc)(), void (*unloadfnc)(void*),
     fprintf(stderr, "NULL functions!\n");
     exit(1);
   }
-  engine_scene.data = engine_scene.load_fnc();
+  engine_scene.data = engine_scene.load_fnc(engine_scene.data);
 }
