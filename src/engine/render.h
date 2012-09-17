@@ -15,6 +15,6 @@ void engine_unload_image(SDL_Surface *image);
 /* Render image */
 void engine_render_surface(SDL_Surface *src_surface, SDL_Rect *src_rect, SDL_Rect *dest_rect);
 /* Create a surface */
-SDL_Surface *engine_create_surface(Uint32 flags, int w, int h);
+SDL_Surface *engine_create_surface(Uint32 flags, int w, int h, int alpha);
 
 #endif

@@ -49,7 +49,7 @@ void engine_render_surface(SDL_Surface *src_surface, SDL_Rect *src_rect, SDL_Rec
 }
 
 /* Create surface */
-SDL_Surface *engine_create_surface(Uint32 flags, int w, int h)
+SDL_Surface *engine_create_surface(Uint32 flags, int w, int h, int alpha)
 {
   Uint32 rmask, gmask, bmask, amask;
 
@@ -57,12 +57,18 @@ SDL_Surface *engine_create_surface(Uint32 flags, int w, int h)
   rmask = 0xff000000;
   gmask = 0x00ff0000;
   bmask = 0x0000ff00;
-  amask = 0x000000ff;
+  if(alpha)
+    amask = 0x000000ff;
+  else
+    amask = 0;
 #else
   rmask = 0x000000ff;
   gmask = 0x0000ff00;
   bmask = 0x00ff0000;
-  amask = 0xff000000;
+  if(alpha)
+    amask = 0xff000000;
+  else
+    amask = 0;
 #endif
   return SDL_CreateRGBSurface(flags, w, h, 32, rmask, gmask, bmask, amask);
 }
