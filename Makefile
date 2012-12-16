@@ -1,4 +1,4 @@
-OBJ=engine/core engine/render engine/sound engine/text gui/window gui/theme gui/render
+OBJ=engine/core engine/render engine/sound engine/text dbt/main_scene dbt/map dbt/input dbt/entity dbt/render_entity dbt/path dbt/refresh_entity
 LIB=SDL SDL_image SDL_mixer SDL_ttf m
 MAIN=main
 APP=app
@@ -8,7 +8,7 @@ CC_FLAGS=-Wall -O2
 
 SRC=src
 OBJ_PATH=obj
-OBJ_SUB=engine gui
+OBJ_SUB=engine gui dbt
 BUILD=build
 
 OBJ_FILES=$(addprefix $(OBJ_PATH)/, $(addsuffix .o, $(OBJ)))
