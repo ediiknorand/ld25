@@ -1,6 +1,8 @@
 #ifndef H_INPUT_H
 #define H_INPUT_H
 
+#include "../engine/engine.h"
+
 typedef struct
 {
   char skill1; SDLKey key1;

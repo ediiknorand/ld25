@@ -5,6 +5,9 @@
 #include "entity.h"
 #include "render_entity.h"
 #include "refresh_entity.h"
+#include "player.h"
+#include "wave.h"
+#include "attack.h"
 
 void *dbt_load(void *scene)
 {
@@ -13,18 +16,10 @@ void *dbt_load(void *scene)
   entity_load();
   render_load();
   entity_stone_map();
+  player_load();
+  wave_load();
 
-
-  entity_spawn_soldier(0, MAP_HEIGHT/2);
-  entity_spawn_soldier(MAP_WIDTH-1, MAP_HEIGHT/2);
-  entity_spawn_archer(0, MAP_HEIGHT/2+1);
-  entity_spawn_soldier(0, MAP_HEIGHT/2-1);
-  entity_spawn_archer(MAP_WIDTH-1, MAP_HEIGHT/2+1);
-  entity_spawn_soldier(MAP_WIDTH-1, MAP_HEIGHT/2-1);
-  entity_spawn_soldier(MAP_WIDTH/3, 0);
-  entity_spawn_bunny(8,5);
-  entity_spawn_bunny(13,7);
-  dbt_map.map[map_index(MAP_WIDTH/2-1,MAP_HEIGHT/2-1)] = 3;
+  dbt_map.map[map_index((int)dbt_entity[0].x,(int)dbt_entity[0].y)] = 3;
 
   return NULL;
 }
@@ -37,7 +32,15 @@ void *dbt_unload(void *scene)
 int dbt_refresh(void *scene, Uint8 *keyboard, double delta)
 {
   int running = input_refresh(keyboard);
+  player_input();
+  attack_refresh();
+  player_refresh(delta);
   refresh_entity(delta);
+  wave_refresh(delta);
+  attack_damage();
+
+  if(dbt_entity[0].hp <= 0)
+    running = 0; //game over
 
   return running;
 }
@@ -45,5 +48,8 @@ int dbt_refresh(void *scene, Uint8 *keyboard, double delta)
 void dbt_render(void *scene, double delta)
 {
   map_render();
+  player_render_square();
   render_entity();
+  player_render();
+  wave_render();
 }

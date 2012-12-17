@@ -1,6 +1,10 @@
 #include "../engine/engine.h"
 #include "input.h"
 
+/* debug */
+#include "entity.h"
+#include "map.h"
+
 void input_load()
 {
   dbt_input.key1 = SDLK_a;

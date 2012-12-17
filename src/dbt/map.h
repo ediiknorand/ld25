@@ -8,12 +8,11 @@
 #define MAP_WIDTH 20
 #define MAP_HEIGHT 15
 
-#define map_index(x,y) (x+y*MAP_WIDTH)
-
 typedef struct
 {
   char *map;
   char *emap;
+  int *amap;
   SDL_Surface *tileset;
 } Map;
 
@@ -23,5 +22,7 @@ void map_load();
 void map_paths();
 
 void map_render();
+
+int map_index(int x, int y);
 
 #endif

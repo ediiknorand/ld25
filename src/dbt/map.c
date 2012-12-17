@@ -6,6 +6,7 @@ void map_load()
   int i,j;
   dbt_map.map = malloc(sizeof(char)*MAP_WIDTH*MAP_HEIGHT);
   dbt_map.emap = malloc(sizeof(char)*MAP_WIDTH*MAP_HEIGHT);
+  dbt_map.amap = malloc(sizeof(int)*MAP_WIDTH*MAP_HEIGHT);
 
   for(i = 0; i < MAP_WIDTH; i++)
     for(j = 0; j < MAP_HEIGHT; j++)
@@ -14,6 +15,10 @@ void map_load()
   for(i = 0; i < MAP_WIDTH; i++)
     for(j = 0; j < MAP_HEIGHT; j++)
       dbt_map.emap[map_index(i,j)] = -1;
+
+  for(i = 0; i < MAP_WIDTH; i++)
+    for(j = 0; j < MAP_HEIGHT; j++)
+      dbt_map.amap[map_index(i,j)] = 0;
 
   map_paths();
 
@@ -66,4 +71,10 @@ void map_render()
         src.y = MAP_TILE_H;
       engine_render_surface(dbt_map.tileset, &src, &dest);
     }
+}
+
+
+int map_index(int x, int y)
+{
+  return x+y*MAP_WIDTH;
 }

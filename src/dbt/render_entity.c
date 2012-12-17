@@ -37,7 +37,7 @@ void render_tree()
   SDL_Rect dest;
 
   dest.x = (int)(dbt_entity[0].x*MAP_TILE_W-8);
-  dest.y = (int)(dbt_entity[0].y*MAP_TILE_H-56);
+  dest.y = (int)(dbt_entity[0].y*MAP_TILE_H-48);
 
   engine_render_surface(surface_tree, NULL, &dest);
 }
@@ -57,6 +57,11 @@ void render_bunny(int i)
   dest.x = (int)(dbt_entity[i].x*MAP_TILE_W);
   dest.y = (int)(dbt_entity[i].y*MAP_TILE_H);
   engine_render_surface(surface_bunny, NULL, &dest);
+
+  dest.y -= 8;
+  dest.w = (int)32*((float)dbt_entity[i].hp/dbt_entity[i].maxhp);
+  dest.h = 4;
+  SDL_FillRect(engine_screen.surface, &dest, SDL_MapRGB(engine_screen.surface->format, 255, 0, 0));
 }
 
 void render_soldier(int i)
@@ -66,6 +71,11 @@ void render_soldier(int i)
   dest.y = (int)(dbt_entity[i].y*MAP_TILE_H);
 
   engine_render_surface(surface_soldier, NULL, &dest);
+
+  dest.y -= 8;
+  dest.w = (int)32*((float)dbt_entity[i].hp/dbt_entity[i].maxhp);
+  dest.h = 4;
+  SDL_FillRect(engine_screen.surface, &dest, SDL_MapRGB(engine_screen.surface->format, 0, 0, 255));
 }
 
 void render_archer(int i)
@@ -75,6 +85,11 @@ void render_archer(int i)
   dest.y = (int)(dbt_entity[i].y*MAP_TILE_H);
 
   engine_render_surface(surface_archer, NULL, &dest);
+
+  dest.y -= 8;
+  dest.w = (int)32*((float)dbt_entity[i].hp/dbt_entity[i].maxhp);
+  dest.h = 4;
+  SDL_FillRect(engine_screen.surface, &dest, SDL_MapRGB(engine_screen.surface->format, 0, 0, 255));
 }
 
 void render_fruit(int i)
