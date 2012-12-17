@@ -20,3 +20,6 @@ To Run:
 Thank you and have fun!
 
 Dependencies: SDL, SDL_image.
+
+Get SDL from your package manager or http://www.libsdl.org/
+Get SDL_image from your package manager or http://www.libsdl.org/projects/SDL_image/
