@@ -42,7 +42,10 @@ void attack_ally(int idx, int rng)
   for(i = (dx-rng<0?0:dx-rng); i <= (dx+rng>MAP_WIDTH?MAP_WIDTH-1:dx+rng); i++)
     for(j = (dy-rng<0?0:dy-rng); j <= (dy+rng>MAP_HEIGHT?MAP_HEIGHT-1:dy+rng); j++)
       if(dbt_map.emap[map_index(i,j)] == ENTITY_BUNNY || dbt_map.emap[map_index(i,j)] == ENTITY_DTREE)
+      {
         dbt_map.amap[map_index(i,j)] += dbt_entity[idx].atk;
+	return;
+      }
 }
 
 void attack_enemy(int idx, int rng)
@@ -54,7 +57,10 @@ void attack_enemy(int idx, int rng)
   for(i = (dx-rng<0?0:dx-rng); i <= (dx+rng>MAP_WIDTH?MAP_WIDTH-1:dx+rng); i++)
     for(j = (dy-rng<0?0:dy-rng); j <= (dy+rng>MAP_HEIGHT?MAP_HEIGHT-1:dy+rng); j++)
       if(dbt_map.emap[map_index(i,j)] == ENTITY_SOLDIER || dbt_map.emap[map_index(i,j)] == ENTITY_ARCHER)
+      {
         dbt_map.amap[map_index(i,j)] += dbt_entity[idx].atk;
+	return;
+      }
 }
 
 void attack_damage()
