@@ -1,5 +1,5 @@
-OBJ=engine/core engine/render engine/sound engine/text dbt/main_scene dbt/map dbt/input dbt/entity dbt/render_entity dbt/path dbt/refresh_entity dbt/attack dbt/status dbt/player dbt/wave
-LIB=SDL SDL_image SDL_mixer SDL_ttf m
+OBJ=engine/core engine/render dbt/main_scene dbt/map dbt/input dbt/entity dbt/render_entity dbt/path dbt/refresh_entity dbt/attack dbt/status dbt/player dbt/wave
+LIB=SDL SDL_image m
 MAIN=main
 APP=ld25-dbt
 
