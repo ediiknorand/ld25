@@ -30,7 +30,7 @@ void wave_refresh(double delta)
 {
   wave_cooldown += delta;
 
-  if(wave_cooldown < 15.0f+wave_n)
+  if(wave_cooldown < 15.0f+wave_n*0.1f)
     return;
   wave_summon(wave_n);
   wave_cooldown = 0.0f;
@@ -42,6 +42,6 @@ void wave_render()
   dest.x = 0;
   dest.y = 470;
   dest.h = 8;
-  dest.w = (int)(float)wave_cooldown*640/(15.0f+wave_n);
+  dest.w = (int)(float)wave_cooldown*640/(15.0f+wave_n*0.1f);
   SDL_FillRect(engine_screen.surface, &dest, SDL_MapRGB(engine_screen.surface->format, 40, 40, 0));
 }
