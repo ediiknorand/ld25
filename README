@@ -1,3 +1,20 @@
-Fork me to create a game!
+DEATH BY TREE!
 
-Basic engine made by EdiiKnorand.
+Ludum Dare 25 Entry by Edii Knorand!
+
+You are an evil tree which kills adventurers. You can summon evil bunnies and causes a global damage.
+
+Controls:
+A + Left Click: Summons Bunny
+S + Left Click: Causes Harm
+Q: Quit
+
+
+To Compile:
+  $ make
+
+To Run:
+  $ cd dbt/
+  $ ./ld25-dbt
+
+Thank you and have fun!
