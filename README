@@ -18,3 +18,5 @@ To Run:
   $ ./ld25-dbt
 
 Thank you and have fun!
+
+Dependencies: SDL, SDL_image.
